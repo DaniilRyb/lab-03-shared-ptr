@@ -7,7 +7,6 @@
 #include <utility>
 template <typename T>
 class SharedPointer {
-// fields of SharedPointer class
   T* PointerOnObject;
   std::atomic_size_t *CountOfPointer;
  public:
@@ -25,7 +24,7 @@ class SharedPointer {
   void reset();
   void reset(T* ptr);
   void swap(SharedPointer& r);
-  auto use_count() const -> size_t; // возвращает количество объектов SharedPointer, которые ссылаются на тот же управляемый объект
+  auto use_count() const -> size_t;
 };
 template <typename T>
 SharedPointer<T>::SharedPointer() {
@@ -45,8 +44,7 @@ SharedPointer<T>::SharedPointer(const SharedPointer &r) {
   CountOfPointer = new std::atomic_size_t(1);  // to stay is one
 }
 template <typename T>
-SharedPointer<T>::SharedPointer(SharedPointer &&r) {
-}
+SharedPointer<T>::SharedPointer(SharedPointer &&r) {}
 template <class T>
 SharedPointer<T>::~SharedPointer()  {
   if ((*CountOfPointer) == 0) {

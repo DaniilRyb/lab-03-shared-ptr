@@ -1,7 +1,9 @@
-// Copyright 2018 Your Name <your_email>
-
+// Copyright 2020 Daniil Rybakov <pochtaworld7@gmail.com>
 #include <gtest/gtest.h>
-
-TEST(Example, EmptyTest) {
-    EXPECT_TRUE(true);
+#include "SharedPointer.hpp"
+SharedPointer<int> sp1;
+TEST(CheckContructor, Test1) {
+   EXPECT_EQ(sp1.use_count(), 0);
+   EXPECT_EQ((sp1.operator bool()), 0);
+   EXPECT_EQ(sp1.use_count(), 0);
 }

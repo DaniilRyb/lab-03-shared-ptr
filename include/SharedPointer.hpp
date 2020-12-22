@@ -62,6 +62,7 @@ auto SharedPointer<T>::operator=(const SharedPointer& r) -> SharedPointer& {
   if (this == &r) {
     return *this;
   }
+  this->~SharedPointer();
   PointerOnObject = r.PointerOnObject;
   CountOfPointer = r.CountOfObject;
   ++(*CountOfPointer);
@@ -72,6 +73,7 @@ auto SharedPointer<T>::operator=(SharedPointer&& r) noexcept -> SharedPointer& {
   if (this == &r) {
     return *this;
   }
+  this->~SharedPointer();
   PointerOnObject = r.PointerOnObject;
   CountOfPointer = r.CountOfPointer;
   r.PointerOnObject = nullptr;

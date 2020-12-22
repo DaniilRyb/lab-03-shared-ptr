@@ -13,12 +13,12 @@ class SharedPointer {
 
  public:
   SharedPointer();
-  SharedPointer(T* ptr);
+  explicit SharedPointer(T* ptr);
   SharedPointer(const SharedPointer& r);
-  SharedPointer(SharedPointer&& r);
+  SharedPointer(SharedPointer&& r) noexcept;
   ~SharedPointer();
   auto operator=(const SharedPointer& r) -> SharedPointer&;
-  auto operator=(SharedPointer&& r) -> SharedPointer&;
+  auto operator=(SharedPointer&& r) noexcept -> SharedPointer&;
   operator bool() const;
   auto operator*() const -> T&;
   auto operator->() const -> T*;
@@ -46,7 +46,7 @@ SharedPointer<T>::SharedPointer(const SharedPointer& r) {
   ++(*CountOfPointer);
 }
 template <class T>
-SharedPointer<T>::SharedPointer(SharedPointer&& r) {
+SharedPointer<T>::SharedPointer(SharedPointer&& r) noexcept {
   PointerOnObject = std::move(r.PointerOnObject);
   CountOfPointer = std::move(r.CountOfPointer);
 }
@@ -68,7 +68,7 @@ auto SharedPointer<T>::operator=(const SharedPointer& r) -> SharedPointer& {
   return *this;
 }
 template <class T>
-auto SharedPointer<T>::operator=(SharedPointer&& r) -> SharedPointer& {
+auto SharedPointer<T>::operator=(SharedPointer&& r) noexcept -> SharedPointer& {
   if (this == &r) {
     return *this;
   }

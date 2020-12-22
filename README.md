@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.com/DaniilRyb/lab-03-shared-ptr.svg?branch=lab-work-3)](https://travis-ci.com/DaniilRyb/lab-03-shared-ptr)# Лабораторная работа №3
 
 # Лабораторная работа №3
 

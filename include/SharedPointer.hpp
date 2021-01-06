@@ -123,3 +123,4 @@ template <class T>
 auto SharedPointer<T>::use_count() const -> size_t {
   return static_cast<size_t>(*CountOfPointer);
 }
+#endif  // INCLUDE_SHAREDPOINTER_HPP_

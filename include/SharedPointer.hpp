@@ -1,12 +1,12 @@
 // Copyright 2020 Daniil Rybakov <pochtaworld7@gmail.com>
-#ifndef INCLUDE_SHAREDPOINTER_HPP_
-#define INCLUDE_SHAREDPOINTER_HPP_
-#endif  // INCLUDE_SHAREDPOINTER_HPP_
 #include <atomic>
 #include <memory>
 #include <type_traits>
 #include <utility>
-template <typename T>
+#ifndef INCLUDE_SHAREDPOINTER_HPP_
+#define INCLUDE_SHAREDPOINTER_HPP_
+#endif  // INCLUDE_SHAREDPOINTER_HPP_
+template <class T>
 class SharedPointer {
   T* PointerOnObject;
   std::atomic_uint* CountOfPointer;

@@ -36,26 +36,32 @@ SharedPointer<T>::SharedPointer() {
 template <class T>
 SharedPointer<T>::SharedPointer(T* ptr) {
   PointerOnObject = ptr;
-  CountOfPointer = new std::atomic_uint(1);
+  CountOfPointer = new std::atomic_uint{1};
 }
 template <class T>
 SharedPointer<T>::SharedPointer(const SharedPointer& r) {
-  CountOfPointer = nullptr;
   PointerOnObject = r.PointerOnObject;
   CountOfPointer = r.CountOfPointer;
   ++(*CountOfPointer);
 }
 template <class T>
 SharedPointer<T>::SharedPointer(SharedPointer&& r) noexcept {
-  PointerOnObject = std::move(r.PointerOnObject);
-  CountOfPointer = std::move(r.CountOfPointer);
+  PointerOnObject = r.PointerOnObject;
+  r.PointerOnObject = nullptr;
+  CountOfPointer = r.CountOfPointer;
+  r.CountOfPointer = nullptr;
 }
 template <class T>
 SharedPointer<T>::~SharedPointer() {
-  if ((*CountOfPointer) == 0) {
+  if (!CountOfPointer) {
+    return;
+  }
+  if (--(*CountOfPointer) == 0) {
     delete PointerOnObject;
     delete CountOfPointer;
   }
+  CountOfPointer = nullptr;
+  PointerOnObject = nullptr;
 }
 template <class T>
 auto SharedPointer<T>::operator=(const SharedPointer& r) -> SharedPointer& {
